@@ -30,12 +30,12 @@ class Magento_Buyxgety_Model_Observer
         $RemoveFromCart = '';
 		
 		$product = Mage::getModel('catalog/product')->load($observer->getQuoteItem()->getProductId());
-        if($product->getBuyxgety() == 233){
+        if($product->getAttributeText('buyxgety') == 'Enable'){
             $Buyxgety_xqty = $product->getBuyxgety_xqty();
             $Buyxgety_ysku = $product->getBuyxgety_ysku();
             $Buyxgety_yqty = $product->getBuyxgety_yqty();
-            $Buyxgety_ydiscount = $product->getBuyxgety_ydiscount();
-            if(!empty($Buyxgety_xqty) && !empty($Buyxgety_ysku) && !empty($Buyxgety_yqty) && !empty($Buyxgety_ydiscount)){
+            // $Buyxgety_ydiscount = $product->getBuyxgety_ydiscount();
+            if(!empty($Buyxgety_xqty) && !empty($Buyxgety_ysku) && !empty($Buyxgety_yqty) ){
                 $RemoveFromCart = Mage::getModel('catalog/product')->getIdBySku($Buyxgety_ysku);
             }
         }

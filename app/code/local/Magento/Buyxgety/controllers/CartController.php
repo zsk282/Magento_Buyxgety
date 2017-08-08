@@ -134,21 +134,24 @@ class Magento_Buyxgety_CartController extends Mage_Checkout_CartController
             }
         }
         
+        // print_r($quoteArrayFreeProducts);die;
         // finding free associatied produts and adding them in another array
         for($i = 0; $i < count($quoteArrayNonFreeProducts['item_id']) ;$i++){
             $product = Mage::getModel('catalog/product')->load($quoteArrayNonFreeProducts['item_id'][$i]);
-            if($product->getBuyxgety() == 233){
+            // print_r($product->getAttributeText('buyxgety'));die;
+            if($product->getAttributeText('buyxgety') == 'Enable'){
                 $Buyxgety_xqty = $product->getBuyxgety_xqty();
                 $Buyxgety_ysku = $product->getBuyxgety_ysku();
                 $Buyxgety_yqty = $product->getBuyxgety_yqty();
-                $Buyxgety_ydiscount = $product->getBuyxgety_ydiscount();
-                if(!empty($Buyxgety_xqty) && !empty($Buyxgety_ysku) && !empty($Buyxgety_yqty) && !empty($Buyxgety_ydiscount)){
+
+                // $Buyxgety_ydiscount = $product->getBuyxgety_ydiscount();
+                if(!empty($Buyxgety_xqty) && !empty($Buyxgety_ysku) && !empty($Buyxgety_yqty) ){
+                    // die($Buyxgety_ysku);
                     $AddThisInCart['item_id'][] = Mage::getModel('catalog/product')->getIdBySku($Buyxgety_ysku);
                     $AddThisInCart['qty'][] = (int)($quoteArrayNonFreeProducts['qty'][$i]/$Buyxgety_xqty)*$Buyxgety_yqty;
                 }
             }
         }
-
         for($i = 0; $i < count($AddThisInCart['item_id']) ;$i++){
             if(isset($quoteArrayFreeProducts['item_id'])){
                 for($j = 0; $j < count($quoteArrayFreeProducts['item_id']) ;$j++){
