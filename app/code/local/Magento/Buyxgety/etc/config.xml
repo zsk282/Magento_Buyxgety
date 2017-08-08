@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Magento_Buyxgety>
+      <version>0.1.0</version>
+    </Magento_Buyxgety>
+  </modules>
+    <frontend>
+    <routers>
+      <checkout>
+        <args>
+          <modules>
+            <Magento_Buyxgety before="Mage_Checkout">Magento_Buyxgety</Magento_Buyxgety>
+          </modules>
+        </args>
+      </checkout>
+    </routers>
+  </frontend> 
+  <global>
+    <helpers>
+      <buyxgety>
+        <class>Magento_Buyxgety_Helper</class>
+      </buyxgety>
+    </helpers>
+	<models>
+	  <buyxgety>
+		<class>Magento_Buyxgety_Model</class>
+		<resourceModel>buyxgety_mysql4</resourceModel>
+	  </buyxgety>
+    <sales>
+      <rewrite>
+        <quote>Magento_Buyxgety_Model_Sales_Quote</quote>
+      </rewrite>
+   </sales>
+	</models>
+    <resources>
+      <buyxgety1501682411_setup>
+      <setup>
+        <module>Magento_Buyxgety</module>
+        <class>Mage_Eav_Model_Entity_Setup</class>
+      </setup>
+      <connection>
+        <use>core_setup</use>
+      </connection>
+      </buyxgety1501682411_setup>
+      <buyxgety1501682411_write>
+      <connection>
+        <use>core_write</use>
+      </connection>f
+      </buyxgety1501682411_write>
+      <buyxgety1501682411_read>
+      <connection>
+        <use>core_read</use>
+      </connection>
+      </buyxgety1501682411_read>
+    </resources>
+    <events>
+	  <sales_order_place_after> <!-- identifier of the event we want to catch -->
+        <observers>
+          <sales_order_place_after_handler> <!-- identifier of the event handler -->
+            <type>model</type> <!-- class method call type; valid are model, object and singleton -->
+            <class>buyxgety/observer</class> <!-- observers class alias -->
+            <method>updateOrder</method>  <!-- observer's method to be called -->
+            <args></args> <!-- additional arguments passed to observer -->
+          </sales_order_place_after_handler>
+        </observers>
+      </sales_order_place_after>
+	  <checkout_cart_product_add_after> <!-- identifier of the event we want to catch -->
+        <observers>
+          <checkout_cart_product_add_after_handler> <!-- identifier of the event handler -->
+            <type>model</type> <!-- class method call type; valid are model, object and singleton -->
+            <class>buyxgety/observer</class> <!-- observers class alias -->
+            <method>zeroMaker</method>  <!-- observer's method to be called -->
+            <args></args> <!-- additional arguments passed to observer -->
+          </checkout_cart_product_add_after_handler>
+        </observers>
+      </checkout_cart_product_add_after>
+      <checkout_cart_save_after> <!-- identifier of the event we want to catch -->
+        <observers>
+          <checkout_cart_save_after_handler> <!-- identifier of the event handler -->
+            <type>model</type> <!-- class method call type; valid are model, object and singleton -->
+            <class>buyxgety/observer</class> <!-- observers class alias -->
+            <method>buyxgety</method>  <!-- observer's method to be called -->
+            <args></args> <!-- additional arguments passed to observer -->
+          </checkout_cart_save_after_handler>
+        </observers>
+      </checkout_cart_save_after>
+	  <sales_quote_remove_item> <!-- identifier of the event we want to catch -->
+        <observers>
+          <sales_quote_remove_item_handler> <!-- identifier of the event handler -->
+            <type>model</type> <!-- class method call type; valid are model, object and singleton -->
+            <class>buyxgety/observer</class> <!-- observers class alias -->
+            <method>removebuyxgety</method>  <!-- observer's method to be called -->
+            <args></args> <!-- additional arguments passed to observer -->
+          </sales_quote_remove_item_handler>
+        </observers>
+      </sales_quote_remove_item>
+    </events>
+  </global>
+</config> 
