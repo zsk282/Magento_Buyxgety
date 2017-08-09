@@ -184,10 +184,19 @@ class Magento_Buyxgety_CartController extends Mage_Checkout_CartController
                     }else{
                         $finalAdd['new_row'][] = 1;
                     }
-                }else{
-                    $finalAdd['new_row'][] = 0;
                 }
             }
+            if(!empty($quoteArrayFreeProducts['item_id'])){
+                for($j = 0; $j < count($quoteArrayFreeProducts['item_id']); $j++){
+                    if($finalAdd['item_id'][$i] == $quoteArrayFreeProducts['item_id'][$j]){
+                        $finalAdd['new_row'][] = 0;
+                    }else{
+                        $finalAdd['new_row'][] = 1;
+                    }
+                }
+            }else{
+                $finalAdd['new_row'][] = 1;
+            }  
         }
 
         // print_r($finalAdd);die;
