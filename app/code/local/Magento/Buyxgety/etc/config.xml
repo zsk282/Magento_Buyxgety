@@ -65,7 +65,8 @@
           </sales_order_place_after_handler>
         </observers>
       </sales_order_place_after>
-	  <checkout_cart_product_add_after> <!-- identifier of the event we want to catch -->
+<!-- 	<checkout_cart_product_add_after> -->
+  	<sales_quote_add_item> <!-- identifier of the event we want to catch -->
         <observers>
           <checkout_cart_product_add_after_handler> <!-- identifier of the event handler -->
             <type>model</type> <!-- class method call type; valid are model, object and singleton -->
@@ -74,7 +75,8 @@
             <args></args> <!-- additional arguments passed to observer -->
           </checkout_cart_product_add_after_handler>
         </observers>
-      </checkout_cart_product_add_after>
+<!--       </checkout_cart_product_add_after> -->
+	</sales_quote_add_item>
       <checkout_cart_save_after> <!-- identifier of the event we want to catch -->
         <observers>
           <checkout_cart_save_after_handler> <!-- identifier of the event handler -->
